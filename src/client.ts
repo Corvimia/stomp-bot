@@ -1,14 +1,26 @@
-import { Client, Intents } from "discord.js";
+import { Client, GatewayIntentBits, Partials } from "discord.js";
 import Stomp from "./stomp";
 import twitter from "./twitter";
-
+import quote from "./quote";
+import { Quote } from "./db";
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.MessageContent],
+  partials: [Partials.Message, Partials.Channel, Partials.Reaction]
 });
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user?.tag ?? "Unknown"}!`);
+});
+
+client.on("messageReactionAdd", async (messageReaction, user) => {
+  console.log("emoji added", `${messageReaction.emoji.name}@${messageReaction.emoji.id}`);
+  // YG stomp 477433697100890112
+  // stomp stomp 477434452864401409
+  const emojiId = messageReaction.emoji.id!;
+  if (["477434452864401409", "477433697100890112"].includes(emojiId)) {
+    await quote.add(messageReaction, user);
+  }
 });
 
 client.on("messageCreate", async message => {
@@ -18,7 +30,7 @@ client.on("messageCreate", async message => {
 
   console.log("twitter checked", meta);
 
-  if(!meta.isTwitter){
+  if (!meta.isTwitter) {
     return;
   }
 
@@ -31,8 +43,9 @@ client.on("messageCreate", async message => {
   }
 });
 
-client.on("interaction", async (interaction) => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
+  if (!interaction.isChatInputCommand()) return;
 
   const commands = Stomp.commands.find(c => c.GuildId == interaction.guildId)?.Commands;
 
@@ -49,10 +62,18 @@ client.on("interaction", async (interaction) => {
   }
 })
 
-client.once("ready", () => {
+client.once("ready", async () => {
   for (const guildCommand of Stomp.commands) {
-    client.guilds.cache.get(guildCommand.GuildId)?.commands.create(guildCommand.Commands)
+    try {
+      await (await client.guilds.fetch(guildCommand.GuildId)).commands.create(guildCommand.Commands)
+
+    } catch (e) {
+      console.warn(`Could not add commands to guild ${guildCommand.GuildId}`);
+    }
   }
+
+  await Quote.sync();
+
   console.log("Commands created");
 })
 

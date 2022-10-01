@@ -21,12 +21,12 @@ const getTweetThreadCount = async (tweetId: string, author: string): Promise<num
     }
   });
 
-  const {conversation_id, created_at} = result.data.data;
+  const { conversation_id, created_at } = result.data.data;
 
-  if(dayjs(created_at) < dayjs().add(-7, 'day')){
+  if (dayjs(created_at) < dayjs().add(-7, 'day')) {
     return 0;
   }
-console.log({conversation_id, created_at, data:result.data})
+  console.log({ conversation_id, created_at, data: result.data })
   const url2 = `https://api.twitter.com/2/tweets/search/recent?query=conversation_id:${conversation_id} from:${author} to:${author}`;
   const result2 = await axios.get(url2, {
     headers: {

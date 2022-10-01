@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd8ecc5d-7015-49a8-9b17-73d23b4cea71" name="Default Changelist" comment="fix the workflow">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodemon.json" beforeDir="false" afterPath="$PROJECT_DIR$/nodemon.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/duck.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/duck.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/quote.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stomp.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stomp.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/twitter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/twitter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,25 +52,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.standard" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.standard" value="" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.saveactions&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Projects\\JS\\stomp-bot\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projects\JS\stomp-bot" />
@@ -109,6 +104,16 @@
       <workItem from="1631782591464" duration="4260000" />
       <workItem from="1638810942772" duration="2703000" />
       <workItem from="1640698611150" duration="4199000" />
+      <workItem from="1642427954733" duration="1448000" />
+      <workItem from="1645432984388" duration="878000" />
+      <workItem from="1645551123540" duration="682000" />
+      <workItem from="1647812956321" duration="248000" />
+      <workItem from="1647813218659" duration="777000" />
+      <workItem from="1649016208653" duration="893000" />
+      <workItem from="1656932817697" duration="4053000" />
+      <workItem from="1662046522739" duration="5450000" />
+      <workItem from="1664382773793" duration="9589000" />
+      <workItem from="1664649929704" duration="8410000" />
     </task>
     <task id="LOCAL-00001" summary="First draft of the bot in docker">
       <created>1631785430936</created>
@@ -148,6 +153,17 @@
     <MESSAGE value="First draft of the bot in docker" />
     <MESSAGE value="fix the workflow" />
     <option name="LAST_COMMIT_MESSAGE" value="fix the workflow" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/stomp.ts</url>
+          <line>151</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

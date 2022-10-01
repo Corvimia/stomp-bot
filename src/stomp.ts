@@ -1,6 +1,14 @@
-import {ApplicationCommandData, CommandInteraction, Guild, User} from "discord.js";
+import {
+  ApplicationCommandData,
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+  ChatInputCommandInteraction,
+  Guild,
+  User
+} from "discord.js";
 import quote from "./quote";
 import duck from "./duck";
+import tools from "./tools";
 
 type GuildCommands = {
   GuildId: `${bigint}`,
@@ -17,22 +25,22 @@ const commands: GuildCommands[] = [
         {
           name: "hello",
           description: "say hello",
-          type: "SUB_COMMAND",
+          type: ApplicationCommandOptionType.Subcommand,
         },
         {
           name: "quote",
-          description: "do some quotes management",
-          type: "SUB_COMMAND_GROUP",
+          description: "Quote Commands",
+          type: ApplicationCommandOptionType.SubcommandGroup,
           options: [
             {
-              name: "list",
-              description: "list quotes",
-              type: "SUB_COMMAND",
+              name: "count",
+              description: "count quote for a specific user or total",
+              type: ApplicationCommandOptionType.Subcommand,
               options: [
                 {
                   name: "user",
                   description: "the user to filter by",
-                  type: "USER",
+                  type: ApplicationCommandOptionType.User,
                   required: false
                 }
               ]
@@ -40,19 +48,24 @@ const commands: GuildCommands[] = [
             {
               name: "random",
               description: "get a quote at random",
-              type: "SUB_COMMAND"
+              type: ApplicationCommandOptionType.Subcommand
+            },
+            {
+              name: "analyse",
+              description: "[ADMIN] go through all messages to find old quotes and save them",
+              type: ApplicationCommandOptionType.Subcommand
             }
           ]
         },
         {
           name: "quit",
           description: "[ADMIN] kills this bot and restart",
-          type: "SUB_COMMAND"
+          type: ApplicationCommandOptionType.Subcommand
         },
         {
           name: "duck",
           description: "have a duck",
-          type: "SUB_COMMAND"
+          type: ApplicationCommandOptionType.Subcommand
         }
       ]
     }
@@ -66,17 +79,47 @@ const commands: GuildCommands[] = [
         {
           name: "hello",
           description: "say hello",
-          type: "SUB_COMMAND",
+          type: ApplicationCommandOptionType.Subcommand,
+        },
+        {
+          name: "quote",
+          description: "Quote Commands",
+          type: ApplicationCommandOptionType.SubcommandGroup,
+          options: [
+            {
+              name: "count",
+              description: "count quote for a specific user or total",
+              type: ApplicationCommandOptionType.Subcommand,
+              options: [
+                {
+                  name: "user",
+                  description: "the user to filter by",
+                  type: ApplicationCommandOptionType.User,
+                  required: false
+                }
+              ]
+            },
+            {
+              name: "random",
+              description: "get a quote at random",
+              type: ApplicationCommandOptionType.Subcommand
+            },
+            {
+              name: "analyse",
+              description: "[ADMIN] go through all messages to find old quotes and save them",
+              type: ApplicationCommandOptionType.Subcommand
+            }
+          ]
         },
         {
           name: "quit",
           description: "[ADMIN] kills this bot and restart",
-          type: "SUB_COMMAND"
+          type: ApplicationCommandOptionType.Subcommand
         },
         {
           name: "duck",
           description: "have a duck",
-          type: "SUB_COMMAND"
+          type: ApplicationCommandOptionType.Subcommand
         }
       ]
     }
@@ -87,16 +130,15 @@ const getCurrentServerNickname = async (guild: Guild | null, user: User): Promis
   if (!guild) {
     return "Nickname Not Found";
   }
-  return (await guild?.members.fetch({user: user}))?.displayName;
+  return (await guild?.members.fetch({ user: user }))?.displayName ?? "Nickname Not Found";
 }
 
-const hello = async (interaction: CommandInteraction): Promise<void> => {
-  console.log("Hello command called");
+const hello = async (interaction: ChatInputCommandInteraction): Promise<void> => {
   await interaction.reply(`Hi ${await getCurrentServerNickname(interaction.guild, interaction.user)}`);
 }
-const quit = async (interaction: CommandInteraction): Promise<void> => {
-  console.log("Quit command called");
-  if (!["164441917394780160"].includes(interaction.user.id)) {
+
+const quit = async (interaction: ChatInputCommandInteraction): Promise<void> => {
+  if (!tools.isAdmin(interaction.user)) {
     await interaction.reply("Nice try :eyes:");
     return;
   }
@@ -104,9 +146,10 @@ const quit = async (interaction: CommandInteraction): Promise<void> => {
   process.exit(0);
 }
 
-const handle = async (interaction: CommandInteraction): Promise<void> => {
-  console.log("Stomp command called");
+const handle = async (interaction: ChatInputCommandInteraction): Promise<void> => {
   const command = interaction.options.data[0];
+
+  console.log("Stomp command called", command?.name);
 
   switch (command?.name) {
     case "hello":
