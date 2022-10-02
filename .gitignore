@@ -3,3 +3,5 @@
 /.env
 /.env.prod
 .idea/sonarlint
+.idea/workspace.xml
+database.sqlite

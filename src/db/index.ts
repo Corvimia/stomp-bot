@@ -30,7 +30,7 @@ interface QuoteModel extends Model<InferAttributes<QuoteModel>, InferCreationAtt
 export const Quote = sequelize.define<QuoteModel>('Quote', {
   id: {
     primaryKey: true,
-    type: INTEGER.UNSIGNED,
+    type: INTEGER,
   },
   content: TEXT,
   user: STRING,

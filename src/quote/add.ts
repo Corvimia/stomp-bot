@@ -22,5 +22,5 @@ export default async (messageReaction: MessageReaction | PartialMessageReaction,
     added_by: user.username ?? "no username",
   })
 
-  await messageReaction.message.react("1025878803525939240");
+  await messageReaction.message.react("1026059908325580820");
 };
